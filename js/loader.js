@@ -102,6 +102,7 @@ var Loader = (function() {
 				position: moduleData.position,
 				header: moduleData.header,
 				config: moduleData.config,
+				remote: moduleData.remote,
 				classes: (typeof moduleData.classes !== "undefined") ? moduleData.classes + " " + module : module
 			});
 
