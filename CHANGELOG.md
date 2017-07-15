@@ -43,6 +43,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Add ability for `currentweather` module to display indoor humidity via INDOOR_HUMIDITY notification.
 - Add Welsh (Cymraeg) translation.
 - Add Slack badge to Readme.
+- Add ability to connect specific modules to a remote socket instance for offloading resources to other servers or sharing node_helpers with multiple MM instances.
 
 ### Updated
 - Changed 'default.js' - listen on all attached interfaces by default.

@@ -141,6 +141,7 @@ Module configuration:
 | `classes` | Additional classes which are passed to the module. The field is optional. |
 | `header` | To display a header text above the module, add the header property. This field is optional. |
 | `disabled` | Set disabled to `true` to skip creating the module. This field is optional. |
+| `remote` | The URL of the MM² server to use for this module's helper. This field is optional and not required for most modules. It is used for sharing resources across multiple MagicMirror² servers/clients and accepts a URL string like `"http://othermirror:8080"`.
 | `config` | An object with the module configuration properties. Check the documentation of the module for more information. This field is optional, unless the module requires extra configuration. |
 
 ## Modules
