@@ -1,4 +1,6 @@
-var MMSocket = function(moduleName) {
+/* jshint esversion: 6 */
+
+var MMSocket = function(moduleName, remote) {
 	var self = this;
 
 	if (typeof moduleName !== "string") {
@@ -8,7 +10,12 @@ var MMSocket = function(moduleName) {
 	self.moduleName = moduleName;
 
 	// Private Methods
-	self.socket = io("/" + self.moduleName);
+	if (typeof remote !== "string") {
+		self.socket = io("/" + self.moduleName);
+	} else {	
+		self.socket = io(remote + "/" + self.moduleName);
+	}
+	
 	var notificationCallback = function() {};
 
 	var onevent = self.socket.onevent;

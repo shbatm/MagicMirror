@@ -237,7 +237,7 @@ var Module = Class.extend({
 	 */
 	socket: function () {
 		if (typeof this._socket === "undefined") {
-			this._socket = this._socket = new MMSocket(this.name);
+			this._socket = this._socket = new MMSocket(this.name, this.data.remote);
 		}
 
 		var self = this;
