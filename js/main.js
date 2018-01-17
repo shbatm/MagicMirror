@@ -1,5 +1,5 @@
 /* global  Log, Loader, Module, config, defaults */
-/* jshint -W020 */
+/* jshint -W020, esversion: 6 */
 
 /* Magic Mirror
  * Main System
@@ -19,6 +19,8 @@ var MM = (function() {
 	 * are configured for a specific position.
 	 */
 	var createDomObjects = function() {
+		var domCreationPromises = [];
+
 		modules.forEach(module => {
 			if (typeof module.data.position !== "string") {
 				return;
@@ -48,14 +50,18 @@ var MM = (function() {
 			moduleContent.className = "module-content";
 			dom.appendChild(moduleContent);
 
-			updateDom(module, 0).then(() => {
+			var domCreationPromise = updateDom(module, 0);
+			domCreationPromises.push(domCreationPromise);
+			domCreationPromise.then(() => {
 				sendNotification("MODULE_DOM_CREATED", null, null, module);
 			}).catch(Log.error);
 		});
 
 		updateWrapperStates();
 
-		sendNotification("DOM_OBJECTS_CREATED");
+		Promise.all(domCreationPromises).then(() => {
+			sendNotification("DOM_OBJECTS_CREATED");
+		});
 	};
 
 	/* selectWrapper(position)
@@ -83,7 +89,8 @@ var MM = (function() {
 	 * argument sendTo Module - The module to send the notification to. (optional)
 	 */
 	var sendNotification = function(notification, payload, sender, sendTo) {
-		for (var module of modules) {
+		for (var m in modules) {
+			var module = modules[m];
 			if (module !== sender && (!sendTo || module === sendTo)) {
 				module.notificationReceived(notification, payload, sender);
 			}
